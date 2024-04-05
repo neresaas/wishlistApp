@@ -62,19 +62,19 @@ routerUsers.post("/", async (req, res) => {
 
     let errors = []
 
-    if( email == undefined ) {
+    if ( email == undefined ) {
         errors.push("No email in body")
     }
-    if( name == undefined ) {
+    if ( name == undefined ) {
         errors.push("No name in body")
     }
-    if( password == undefined ) {
+    if ( password == undefined ) {
         errors.push("No password in body")
     }
     if (password != undefined && password.length < 5) {
         errors.push("Password less than 5")
     }
-    if( errors.length > 0) {
+    if ( errors.length > 0) {
         return res.status(400).json({errors: errors})
     }
 
