@@ -104,4 +104,16 @@ routerUsers.post("/", async (req, res) => {
     res.json({inserted: insertedUser})
 })
 
+routerUsers.get("/disconnect", async (req, res) => {
+    let apiKey = req.query.apiKey
+    let index = activeApiKeys.indexOf(apiKey)
+
+    if (index != -1) {
+        activeApiKeys.splice(index, 1)
+        res.json({disconnected: true})
+    } else {
+        res.json(400).json({errors: "User not found"})
+    }
+});
+
 module.exports = routerUsers;
