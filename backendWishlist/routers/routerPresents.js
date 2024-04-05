@@ -3,6 +3,24 @@ const database = require("../database");
 
 const routerPresents = express.Router();
 
+routerPresents.get('/', async (req, res) => {
+    let userId = req.query.userId
+
+    let presents = [];
+
+    database.connect();
+
+    if(userId != undefined) {
+        presents = await database.query('SELECT presents.*, users.email FROM presents JOIN users ON presents.userId = users.id WHERE presents.userId = ?', [userId])
+    } else {
+        presents = await database.query('SELECT presents.*, users.email FROM presents JOIN users ON presents.userId = users.id')
+    }
+
+    database.disConnect();
+
+    res.json(presents);
+});
+
 routerPresents.post("/", async (req, res) => {
     let name = req.body.name
     let description = req.body.description
