@@ -2,8 +2,60 @@ const express = require("express");
 const database = require("../database");
 
 const routerUsers = express.Router();
+const jwt = require("jsonwebtoken");
 
-routerUsers.post("/", async (req, res)=>{
+const activeApiKeys = require("../activeApiKeys");
+
+routerUsers.post("/login", async (req, res) => {
+    let email = req.body.email
+    let password = req.body.password
+
+    let errors = []
+
+    if ( email == undefined ) {
+        errors.push("No email in body")
+    }
+    if ( password == undefined ) {
+        errors.push("No password in body")
+    }
+    if ( errors.length > 0) {
+        return res.status(400).json({errors: errors})
+    }
+
+    database.connect();
+
+    let selectedUsers = null;
+    try {
+        selectedUsers = await database.query("SELECT id, email FROM users WHERE email = ? AND password = ?", [email, password])
+
+    } catch (e) {
+        database.disConnect();
+        return res.status(400).json({errors: e})
+    }
+
+    if ( selectedUsers.length == 0) {
+        return res.status(401).json({errors: "Invalid email or password"})
+    }
+
+    database.disConnect();
+
+    let apiKey = jwt.sign(
+		{ 
+			email: selectedUsers[0].email,
+			id: selectedUsers[0].id
+		},
+		"secret");
+
+	activeApiKeys.push(apiKey)
+
+    res.json({
+        apiKey: apiKey,
+        id: selectedUsers[0].id,
+        email: selectedUsers[0].email
+    })
+})
+
+routerUsers.post("/", async (req, res) => {
     let email = req.body.email
     let name = req.body.name
     let password = req.body.password
@@ -23,7 +75,7 @@ routerUsers.post("/", async (req, res)=>{
         errors.push("Password less than 5")
     }
     if( errors.length > 0) {
-        return res.status(400).json({error: errors})
+        return res.status(400).json({errors: errors})
     }
 
     database.connect();
@@ -37,7 +89,7 @@ routerUsers.post("/", async (req, res)=>{
 
         if ( userWithSameEmail.length > 0){
             database.disConnect();
-            return res.status(400).json({error: "Already an user with this email"})
+            return res.status(400).json({errors: "Already an user with this email"})
         }
 
         insertedUser = await database.query("INSERT INTO users (email, name, password) VALUES (?,?,?)",
@@ -45,7 +97,7 @@ routerUsers.post("/", async (req, res)=>{
 
     } catch (e) {
         database.disConnect();
-        return res.status(400).json({error: e})
+        return res.status(400).json({errors: e})
     }
 
     database.disConnect();
