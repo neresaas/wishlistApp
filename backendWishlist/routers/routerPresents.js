@@ -145,4 +145,31 @@ routerPresents.put("/:id", async (req, res) => {
     res.json({modified: updatedPresent})
 });
 
+routerPresents.delete("/:id", async (req,res) => {
+    let id = req.params.id
+
+    if ( id == undefined ){
+        return res.status(400).json({errors: "No id"})
+    }
+
+    database.connect();
+
+    try {
+    
+        let presents = await database.query("SELECT * FROM presents WHERE id = ? AND userId = ?", [id, req.infoApiKey.id])
+
+        if (presents.length > 0){
+            await database.query("DELETE FROM presents WHERE id = ?", [id])
+        }
+    
+    } catch (e) {
+        res.status(400).json({errors: "Error in deleted presents" })
+        return
+    }
+    
+    database.disConnect();
+
+    res.json({deleted: true})
+})
+
 module.exports = routerPresents;
