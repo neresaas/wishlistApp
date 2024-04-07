@@ -3,10 +3,26 @@ const database = require("../database");
 
 const routerFriends = express.Router();
 
+routerFriends.get("/", async (req, res) => {
+    let emailMainUser = req.infoApiKey.email
+
+    if ( emailMainUser == undefined ){
+        return res.status(400).json({errors: "No emailMainuser"})
+    }
+
+    let friends = []
+
+    database.connect();
+
+    friends = await database.query("SELECT emailFriend FROM friends WHERE emailMainUser = ?", [emailMainUser])
+
+    database.disConnect();
+
+    res.send(friends)
+})
+
 routerFriends.post("/", async (req, res) => {
     let emailFriend = req.body.emailFriend
-
-    let errors = []
 
     if ( emailFriend == undefined ) {
         errors.push("No email in body")
