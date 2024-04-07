@@ -155,11 +155,16 @@ routerPresents.delete("/:id", async (req,res) => {
     database.connect();
 
     try {
-    
         let presents = await database.query("SELECT * FROM presents WHERE id = ? AND userId = ?", [id, req.infoApiKey.id])
 
-        if (presents.length > 0){
+        if (presents.length > 0) {
             await database.query("DELETE FROM presents WHERE id = ?", [id])
+        }
+        
+        let notYourPresent = presents.find(nYP => nYP.id == id)
+
+        if (notYourPresent == undefined) {
+            return res.status(400).json({errors: "You cannot delete this present"})
         }
     
     } catch (e) {
