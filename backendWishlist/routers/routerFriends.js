@@ -19,7 +19,7 @@ routerFriends.get("/", async (req, res) => {
     database.disConnect();
 
     res.send(friends)
-})
+});
 
 routerFriends.post("/", async (req, res) => {
     let emailFriend = req.body.emailFriend
@@ -74,6 +74,40 @@ routerFriends.post("/", async (req, res) => {
     database.disConnect();
 
     res.json({added: newFriend})
+});
+
+routerFriends.delete("/:email", async (req, res) => {
+    let email = req.params.email
+
+    if ( email == undefined ) {
+        return res.status(400).json({errors: "No email in params"})
+    }
+
+    database.connect();
+
+    try {
+
+        let friends = await database.query("SELECT * FROM friends WHERE emailFriend = ? AND emailMainUser = ?", [email, req.infoApiKey.email])
+
+        if (friends.length > 0) {
+            await database.query("DELETE FROM friends WHERE emailFriend = ? AND emailMainUser = ?", [email, req.infoApiKey.email])
+        }
+
+        let noFriend = friends.find(nF => nF.emailFriend == email)
+
+        if (noFriend == undefined){
+            res.status(400).json({errors: "You do not have a friend with this email"})
+            return
+        }
+    
+    } catch (e) {
+        res.status(400).json({errors: "Error in deleted friends" })
+        return
+    }
+    
+    database.disConnect();
+
+    res.json({deleted: true})
 });
 
 module.exports = routerFriends;
