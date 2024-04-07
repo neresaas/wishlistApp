@@ -35,7 +35,7 @@ routerPresents.get("/:id", async (req, res) => {
     if (presents.length < 1) {
         database.disConnect();
 
-        return res.status(400).json({error: "Not present with this id"})
+        return res.status(400).json({errors: "Not present with this id"})
 
     } else {
         database.disConnect();
@@ -86,7 +86,7 @@ routerPresents.post("/", async (req, res) => {
     } catch(e) {
         database.disConnect();
 
-        return res.status(400).json({errors: "Error"})
+        return res.status(400).json({errors: "Error in inserted present"})
     }
 
     database.disConnect();

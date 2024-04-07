@@ -11,7 +11,7 @@ let routerUsers = require("./routers/routerUsers");
 let routerPresents = require("./routers/routerPresents");
 let routerFriends = require("./routers/routerFriends");
 
-app.use(["/presents", "/friends"] ,(req, res, next)=>{
+app.use(["/presents", "/friends"] ,(req, res, next) => {
 	console.log("Middleware execution")
 
     let apiKey = req.query.apiKey
