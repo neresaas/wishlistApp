@@ -4,16 +4,22 @@ const database = require("../database");
 const routerPresents = express.Router();
 
 routerPresents.get("/", async (req, res) => {   
-    let userId = req.query.userId
+    let userId = req.infoApiKey.id
+    let userEmail = req.query.userEmail
 
-    let presents = [];
+    if ( userId == undefined ){
+        return res.status(400).json({errors: "No userId"})
+    }
+
+    let presents = []
 
     database.connect();
 
-    if (userId != undefined) {
+    if (userId != undefined && userEmail == undefined) {
         presents = await database.query("SELECT presents.*, users.email FROM presents JOIN users ON presents.userId = users.id WHERE presents.userId = ?", [userId])
-    } else {
-        presents = await database.query("SELECT presents.*, users.email FROM presents JOIN users ON presents.userId = users.id")
+
+    } else if (userId != undefined && userEmail != undefined) {
+        presents = await database.query("SELECT presents.*, users.name AS nameuser, friends.* FROM presents JOIN users ON presents.userId = users.id JOIN friends ON users.email = friends.emailMainUser WHERE friends.emailFriend = ? AND friends.emailMainUser = ?", [req.infoApiKey.email, userEmail])
     }
 
     database.disConnect();
