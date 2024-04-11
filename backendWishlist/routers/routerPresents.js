@@ -19,7 +19,7 @@ routerPresents.get("/", async (req, res) => {
         presents = await database.query("SELECT presents.*, users.email FROM presents JOIN users ON presents.userId = users.id WHERE presents.userId = ?", [userId])
 
     } else if (userId != undefined && userEmail != undefined) {
-        presents = await database.query("SELECT presents.*, users.name AS nameuser, friends.* FROM presents JOIN users ON presents.userId = users.id JOIN friends ON users.email = friends.emailMainUser WHERE friends.emailFriend = ? AND friends.emailMainUser = ?", [req.infoApiKey.email, userEmail])
+        presents = await database.query("SELECT presents.*, users.name AS nameUser, friends.* FROM presents JOIN users ON presents.userId = users.id JOIN friends ON users.email = friends.emailMainUser WHERE friends.emailFriend = ? AND friends.emailMainUser = ?", [req.infoApiKey.email, userEmail])
     }
 
     database.disConnect();
@@ -107,46 +107,30 @@ routerPresents.put("/:id", async (req, res) => {
     let url = req.body.url
     let price = req.body.price
 
-    let errors = []
-
-    if ( name == undefined ) {
-        errors.push("No name in body")
-    }
-
-    if ( description == undefined ) {
-        errors.push("No description in body")
-    }
-  
-    if ( url == undefined ) {
-        errors.push("No URL in body")
-    }
-  
-    if (isNaN(price)) {
-        errors.push("Price is not a number")
-    }
-  
-    if (parseFloat(price) <= 0) {
-        errors.push("Price must be higher than 0")
-    }
-  
-    if (errors.length > 0) {
-        return res.status(400).json({errors: errors})
-    }
-
     database.connect();
     
     let updatedPresent = []
 
     try {
-        updatedPresent = await database.query("UPDATE presents SET name = ?, description = ?, url = ?, price = ? WHERE id = ? AND userId = ?", [name, description, url, price, id, req.infoApiKey.id])
+        let presentOwner = await database.query("SELECT users.email, presents.chosenBy FROM users JOIN presents ON users.id = presents.userId WHERE presents.id = ?", [id]) //Email del dueño del regalo
+
+        let friends = await database.query("SELECT friends.emailFriend FROM friends JOIN users ON friends.emailMainUser = users.email WHERE friends.emailMainUser = ? AND friends.emailFriend = ?", [presentOwner[0].email, req.infoApiKey.email]) //¿Soy amigo del dueño?
+
+        if (presentOwner[0].email == req.infoApiKey.email) {
+            updatedPresent = await database.query("UPDATE presents SET name = ?, description = ?, url = ?, price = ? WHERE id = ? AND userId = ?", [name, description, url, price, id, req.infoApiKey.id])
+        }
+ 
+        if (presentOwner[0].email != req.infoApiKey.email && friends[0].emailFriend == req.infoApiKey.email && presentOwner[0].chosenBy == undefined) {
+            updatedPresent = await database.query("UPDATE presents INNER JOIN users ON presents.userId = users.id INNER JOIN friends ON users.email = friends.emailMainUser SET presents.chosenBy = ? WHERE presents.id = ? AND friends.emailFriend = ?", [req.infoApiKey.email, id, req.infoApiKey.email])
+        }
 
     } catch (e) {
-        database.disConnect()
+        database.disConnect();
 
         return res.status(400).json({errors: "Error in updated presents"})
     }
 
-    database.disConnect()
+    database.disConnect();
 
     res.json({modified: updatedPresent})
 });

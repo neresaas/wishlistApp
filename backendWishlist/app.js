@@ -35,8 +35,8 @@ app.use(["/presents", "/friends"] ,(req, res, next) => {
 
     req.infoApiKey = infoApiKey;
 
-    next()
-})
+    next();
+});
 
 app.use("/users", routerUsers);
 app.use("/presents", routerPresents);
