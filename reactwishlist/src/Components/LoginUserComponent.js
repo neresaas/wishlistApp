@@ -26,6 +26,13 @@ let LoginUserComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
+
+            if (jsonData.apiKey != null) {
+            localStorage.setItem("apiKey", jsonData.apiKey);
+            localStorage.setItem("userId", jsonData.id);
+            localStorage.setItem("email", jsonData.email);
+            }
+
             setMessage("Valid login")
         } else {
             setMessage("Not user found")
