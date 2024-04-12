@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { backendURL } from "../Globals";
 
-let LoginUserComponent = () => {
+let LoginUserComponent = (props) => {
+    let { setLogin } = props;
+
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [message, setMessage] = useState("");
@@ -32,6 +34,8 @@ let LoginUserComponent = () => {
             localStorage.setItem("userId", jsonData.id);
             localStorage.setItem("email", jsonData.email);
             }
+
+            setLogin(true)
 
             setMessage("Valid login")
         } else {
