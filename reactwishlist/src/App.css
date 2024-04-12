@@ -46,6 +46,18 @@ h1, h2, h3 {
 .navbar li {
   float: left;
 }
+
+.navbar li a {
+  display: block;
+  color: hsl(0, 0%, 100%);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover {
+  background-color: hsl(260, 5%, 60%);
+}
  
 .center-box {
   max-width: 400px;
@@ -78,4 +90,9 @@ button {
   
 button:hover {
   background-color: hsl(260, 5%, 45%);
+}
+
+.errorMessage {
+  text-align: center;
+  color: red;
 }

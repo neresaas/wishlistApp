@@ -1,6 +1,7 @@
 import './App.css';
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import CreateUserComponent from './Components/CreateUserComponent';
+import LoginUserComponent from './Components/LoginUserComponent';
 
 let App = () => {
   return (
@@ -8,8 +9,9 @@ let App = () => {
       <header>
         <nav>
           <ul className='navbar'>
-            <li>Index</li>
-            <li>Register</li>
+            <li><Link to="/">Index</Link></li>
+            <li><Link to="/register">Register</Link></li>
+            <li><Link to="/login">Login</Link></li>
           </ul>
         </nav>
       </header>
@@ -21,6 +23,10 @@ let App = () => {
 
           <Route path="/register" element={
             <CreateUserComponent/>
+          }/>
+
+          <Route path="/login" element={
+            <LoginUserComponent/>
           }/>
         </Routes>
       </main>
