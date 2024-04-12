@@ -1,9 +1,10 @@
 import './App.css';
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import CreateUserComponent from './Components/CreateUserComponent';
-import LoginUserComponent from './Components/LoginUserComponent';
 import { useEffect, useState } from 'react';
 import { backendURL } from './Globals';
+import CreateUserComponent from './Components/CreateUserComponent';
+import LoginUserComponent from './Components/LoginUserComponent';
+import CreatePresentComponent from './Components/CreatePresentComponent';
 
 let App = () => {
 
@@ -37,6 +38,7 @@ let App = () => {
             <li><Link to="/">Index</Link></li>
             { !login && <li><Link to="/register">Register</Link></li> }
             { !login && <li><Link to="/login">Login</Link></li> }
+            { login && <li><Link to="/createPresent">Create presents</Link></li>}
             { login && <li><Link to="#" onClick={disconnect}>Disconnect</Link></li>}
           </ul>
         </nav>
@@ -53,6 +55,10 @@ let App = () => {
 
           <Route path="/login" element={
             <LoginUserComponent setLogin={setLogin}/>
+          }/>
+
+          <Route path="/createPresent" element={
+            <CreatePresentComponent/>
           }/>
         </Routes>
       </main>

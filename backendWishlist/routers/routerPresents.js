@@ -112,9 +112,9 @@ routerPresents.put("/:id", async (req, res) => {
     let updatedPresent = []
 
     try {
-        let presentOwner = await database.query("SELECT users.email, presents.chosenBy FROM users JOIN presents ON users.id = presents.userId WHERE presents.id = ?", [id]) //Email del dueño del regalo
+        let presentOwner = await database.query("SELECT users.email, presents.chosenBy FROM users JOIN presents ON users.id = presents.userId WHERE presents.id = ?", [id])
 
-        let friends = await database.query("SELECT friends.emailFriend FROM friends JOIN users ON friends.emailMainUser = users.email WHERE friends.emailMainUser = ? AND friends.emailFriend = ?", [presentOwner[0].email, req.infoApiKey.email]) //¿Soy amigo del dueño?
+        let friends = await database.query("SELECT friends.emailFriend FROM friends JOIN users ON friends.emailMainUser = users.email WHERE friends.emailMainUser = ? AND friends.emailFriend = ?", [presentOwner[0].email, req.infoApiKey.email])
 
         if (presentOwner[0].email == req.infoApiKey.email) {
             updatedPresent = await database.query("UPDATE presents SET name = ?, description = ?, url = ?, price = ? WHERE id = ? AND userId = ?", [name, description, url, price, id, req.infoApiKey.id])
