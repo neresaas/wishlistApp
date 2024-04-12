@@ -1,10 +1,12 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 let activeApiKeys = require("./activeApiKeys");
+const cors = require("cors")
 
 const port = 4000;
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 let routerUsers = require("./routers/routerUsers");
