@@ -6,6 +6,7 @@ import CreateUserComponent from './Components/CreateUserComponent';
 import LoginUserComponent from './Components/LoginUserComponent';
 import CreatePresentComponent from './Components/CreatePresentComponent';
 import MyPresentsComponent from './Components/MyPresentsComponent';
+import DetailsPresentComponent from './Components/DetailsPresentComponent';
 
 let App = () => {
 
@@ -65,6 +66,10 @@ let App = () => {
 
           <Route path="/myPresents" element={
             <MyPresentsComponent/>
+          }/>
+
+          <Route path="/present/:presentId" element={
+            <DetailsPresentComponent/>
           }/>
         </Routes>
       </main>

@@ -103,10 +103,32 @@ button:hover {
   background-color: hsl(0, 0%, 98%);
   border: 1px solid hsl(0, 0%, 80%);
 }
+
 .present {
-  border-bottom: 1px solid hsl(0, 0%, 80%);
+  border: 1px solid hsl(0, 0%, 80%);  
 }
 
-.present:last-child {
-  border-bottom: none;
+.present:hover {
+  color: hsl(270, 10%, 50%);
+}
+
+a {
+  color: hsl(0, 0%, 0%);
+  text-decoration: none;
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+td {
+  max-width: 600px;
+  min-width: 300px;
+  word-break: break-all;
+}
+
+td, th {
+  border: 1px solid hsl(0, 0%, 80%);
+  padding: 1.6rem;
 }
