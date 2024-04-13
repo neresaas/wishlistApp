@@ -80,12 +80,18 @@ input {
   
 button {
   padding: 10px 20px;
-  background-color: hsl(270, 10%, 50%);
+  background-color: hsl(271, 10%, 50%);
   color: #fff;
   border: none;
   border-radius: 3px;
   cursor: pointer;
   width:100%;
+}
+
+.delete-btn {
+  max-width: 60px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
   
 button:hover {
@@ -101,15 +107,21 @@ button:hover {
   max-width: 450px;
   margin: 20px auto;
   background-color: hsl(0, 0%, 98%);
-  border: 1px solid hsl(0, 0%, 80%);
 }
 
 .present {
-  border: 1px solid hsl(0, 0%, 80%);  
+  padding: 0.5rem;
+  background-color: rgb(244, 240, 246);
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 3px;
 }
 
 .present:hover {
   color: hsl(270, 10%, 50%);
+}
+
+.div-presents {
+  text-align: end;
 }
 
 a {
