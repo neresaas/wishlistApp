@@ -7,6 +7,7 @@ import LoginUserComponent from './Components/LoginUserComponent';
 import CreatePresentComponent from './Components/CreatePresentComponent';
 import MyPresentsComponent from './Components/MyPresentsComponent';
 import DetailsPresentComponent from './Components/DetailsPresentComponent';
+import EditPresentComponent from './Components/EditPresentComponent';
 
 let App = () => {
 
@@ -70,6 +71,10 @@ let App = () => {
 
           <Route path="/present/:presentId" element={
             <DetailsPresentComponent/>
+          }/>
+
+          <Route path="/present/edit/:presentId" element={
+            <EditPresentComponent/>
           }/>
         </Routes>
       </main>

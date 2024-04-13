@@ -28,7 +28,8 @@ let MyPresentsComponent = () => {
         })
 
         if (response.ok) {
-            getPresents();
+            let updatedPresent = presents.filter(present => present.id != id)
+            setPresents(updatedPresent)
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)

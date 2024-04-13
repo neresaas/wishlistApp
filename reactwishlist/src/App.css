@@ -93,6 +93,11 @@ button {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
+.edit-btn {
+  max-width: 80px;
+  margin-top: 5px;
+}
   
 button:hover {
   background-color: hsl(260, 5%, 45%);
@@ -124,6 +129,10 @@ button:hover {
   text-align: end;
 }
 
+.edit-details {
+  text-align: center;
+}
+
 a {
   color: hsl(0, 0%, 0%);
   text-decoration: none;
@@ -138,6 +147,7 @@ td {
   max-width: 600px;
   min-width: 300px;
   word-break: break-all;
+  text-align: start;
 }
 
 td, th {
