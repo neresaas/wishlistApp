@@ -31,10 +31,10 @@ footer {
   box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.1);
 }
   
-h1, h2, h3 {
+h1, h2, h3, h4 {
   text-align: center;
 }
-  
+ 
 .navbar {
   list-style-type: none;
   margin: 0;
@@ -95,4 +95,18 @@ button:hover {
 .errorMessage {
   text-align: center;
   color: red;
+}
+
+.presents {
+  max-width: 450px;
+  margin: 20px auto;
+  background-color: hsl(0, 0%, 98%);
+  border: 1px solid hsl(0, 0%, 80%);
+}
+.present {
+  border-bottom: 1px solid hsl(0, 0%, 80%);
+}
+
+.present:last-child {
+  border-bottom: none;
 }

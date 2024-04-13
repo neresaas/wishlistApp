@@ -5,6 +5,7 @@ import { backendURL } from './Globals';
 import CreateUserComponent from './Components/CreateUserComponent';
 import LoginUserComponent from './Components/LoginUserComponent';
 import CreatePresentComponent from './Components/CreatePresentComponent';
+import MyPresentsComponent from './Components/MyPresentsComponent';
 
 let App = () => {
 
@@ -39,6 +40,7 @@ let App = () => {
             { !login && <li><Link to="/register">Register</Link></li> }
             { !login && <li><Link to="/login">Login</Link></li> }
             { login && <li><Link to="/createPresent">Create presents</Link></li>}
+            { login && <li><Link to="/myPresents">My presents</Link></li>}
             { login && <li><Link to="#" onClick={disconnect}>Disconnect</Link></li>}
           </ul>
         </nav>
@@ -59,6 +61,10 @@ let App = () => {
 
           <Route path="/createPresent" element={
             <CreatePresentComponent/>
+          }/>
+
+          <Route path="/myPresents" element={
+            <MyPresentsComponent/>
           }/>
         </Routes>
       </main>
