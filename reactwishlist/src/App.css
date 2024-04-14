@@ -102,6 +102,11 @@ button {
 .friend-btn {
   margin-bottom: 15px;
 }
+
+.choose-btn {
+  margin-top: 15px;
+  max-width: 90px;
+}
   
 button:hover {
   background-color: hsl(260, 5%, 45%);

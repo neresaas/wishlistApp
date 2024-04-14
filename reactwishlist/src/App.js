@@ -11,6 +11,7 @@ import EditPresentComponent from './Components/EditPresentComponent';
 import AddFriendsComponent from './Components/AddFriendsComponent';
 import MyFriendsComponent from './Components/MyFriendsComponent';
 import GiftFriendComponent from './Components/GiftFriendComponent';
+import PresentFriendsComponent from './Components/PresentFriendsComponent';
 
 let App = () => {
 
@@ -92,6 +93,10 @@ let App = () => {
 
           <Route path="/gift" element={
             <GiftFriendComponent/>
+          }/>
+
+          <Route path="/gift/:presentId" element={
+            <PresentFriendsComponent/>
           }/>
         </Routes>
       </main>

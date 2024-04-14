@@ -41,10 +41,12 @@ let GiftFriendComponent = () => {
             </div>
 
             { presents.length > 0 && presents.map( present =>   
-                    (
-                        <div className="present-friend">
-                            <h4>{ present.name }</h4>
-                        </div>
+                    (   
+                        <Link to={"/gift/" + present.id}>
+                                <div className="present-friend">
+                                    <h4>{ present.name }</h4>
+                                </div>
+                        </Link>                        
                     )
                 )}
         </div>
