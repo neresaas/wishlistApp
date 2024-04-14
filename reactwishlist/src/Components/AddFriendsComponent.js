@@ -26,7 +26,7 @@ let AddFriendsComponent = () => {
             setMessage(jsonData.errors)
         }
     }
-    
+        
     return (
         <div>
             <h2>Add Friend</h2>

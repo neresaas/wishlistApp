@@ -35,7 +35,7 @@ let DetailsPresentComponent = () => {
             <h2>Present</h2>
 
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
-
+            
             <table>
                 <caption><h3>{ present.name }</h3></caption>
                 <tr>

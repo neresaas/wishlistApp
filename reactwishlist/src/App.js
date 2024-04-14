@@ -10,6 +10,7 @@ import DetailsPresentComponent from './Components/DetailsPresentComponent';
 import EditPresentComponent from './Components/EditPresentComponent';
 import AddFriendsComponent from './Components/AddFriendsComponent';
 import MyFriendsComponent from './Components/MyFriendsComponent';
+import GiftFriendComponent from './Components/GiftFriendComponent';
 
 let App = () => {
 
@@ -45,8 +46,8 @@ let App = () => {
             { !login && <li><Link to="/login">Login</Link></li> }
             { login && <li><Link to="/createPresent">Create presents</Link></li>}
             { login && <li><Link to="/myPresents">My presents</Link></li>}
-            { login && <li><Link to="/addFriends">Add friends</Link></li>}
             { login && <li><Link to="/friends">Friends</Link></li>}
+            { login && <li><Link to="/gift">Gift</Link></li>}
             { login && <li><Link to="#" onClick={disconnect}>Disconnect</Link></li>}
           </ul>
         </nav>
@@ -81,12 +82,16 @@ let App = () => {
             <EditPresentComponent/>
           }/>
 
-          <Route path="/addFriends" element={
+          <Route path="/friends/addFriend" element={
             <AddFriendsComponent/>
           }/>
 
           <Route path="/friends" element={
             <MyFriendsComponent/>
+          }/>
+
+          <Route path="/gift" element={
+            <GiftFriendComponent/>
           }/>
         </Routes>
       </main>

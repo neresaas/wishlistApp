@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 let MyFriendsComponent = () => {
 
     let [friends, setFriends] = useState([]);
     let [message, setMessage] = useState("");
+
+    let navigate = useNavigate();
 
     useEffect( () => {
         getFriends();
@@ -35,6 +38,10 @@ let MyFriendsComponent = () => {
         }
     }
 
+    let addFriend = () => {
+        navigate("/friends/addFriend")
+    }
+
     return (
         <section>
             <h2>Friends</h2>
@@ -42,6 +49,9 @@ let MyFriendsComponent = () => {
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
 
             <div className="presents">
+
+                <button className="friend-btn" onClick={addFriend}>Add friend</button>
+
                 { friends.map( friend =>   
                     (
                         <div className="div-presents">
