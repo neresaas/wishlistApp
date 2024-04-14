@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 let LoginUserComponent = (props) => {
     let { setLogin } = props;
@@ -7,6 +8,8 @@ let LoginUserComponent = (props) => {
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [message, setMessage] = useState("");
+
+    let navigate = useNavigate();
 
     let changeEmail = (e) => {
         setEmail(e.currentTarget.value)
@@ -35,9 +38,9 @@ let LoginUserComponent = (props) => {
             localStorage.setItem("email", jsonData.email);
             }
 
-            setLogin(true)
+            navigate("/myPresents")
 
-            setMessage("Valid login")
+            setLogin(true)
         } else {
             setMessage("Not user found")
         }

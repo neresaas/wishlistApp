@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 let CreatePresentComponent = () => {
     let [message, setMessage] = useState("");
     let [present, setPresent] = useState({});
+
+    let navigate = useNavigate();
 
     let changeProperty = (propertyName, e) => {
         let presentNew = { ...present, [propertyName] : e.currentTarget.value }
@@ -19,6 +22,7 @@ let CreatePresentComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
+            navigate("/myPresents")
         } else {
             setMessage("Error creating present")
         }

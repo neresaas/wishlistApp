@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 let CreateUserComponent = () => {
     let [email, setEmail] = useState("");
     let [name, setName] = useState("");
     let [password, setPassword] = useState("");
     let [message, setMessage] = useState("");
+
+    let navigate = useNavigate();
     
     let changeEmail = (e) => {
         setEmail(e.currentTarget.value)
@@ -32,7 +35,8 @@ let CreateUserComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
-            setMessage("New user created")
+            navigate("/login")
+            //setMessage("New user created")
         } else {
             setMessage("Error creating user")
         }

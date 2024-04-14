@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 let EditPresentComponent = () => {
 
     let [present, setPresent] = useState({});
     let [message, setMessage] = useState("");
+
+    let navigate = useNavigate();
 
     let { presentId } = useParams();
 
@@ -23,6 +25,7 @@ let EditPresentComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
+            navigate("/present/" + presentId)
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)

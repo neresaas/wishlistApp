@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { backendURL } from "../Globals";
+import { useNavigate } from "react-router-dom";
 
 let AddFriendsComponent = () => {
     let [emailFriend, setEmailFriend] = useState("");
     let [message, setMessage] = useState("");
+
+    let navigate = useNavigate();
     
     let changeEmailFriend = (e) => {
         setEmailFriend(e.currentTarget.value)
@@ -20,7 +23,7 @@ let AddFriendsComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
-            setMessage("New friend added")
+            navigate("/friends")
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)
