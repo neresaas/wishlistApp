@@ -114,4 +114,8 @@ routerUsers.get("/disconnect", async (req, res) => {
     }
 });
 
+routerUsers.get("/checkLogin", async (req, res) => {
+    return res.status(400).json({message: "Ok"})
+});
+
 module.exports = routerUsers;

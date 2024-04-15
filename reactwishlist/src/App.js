@@ -1,5 +1,5 @@
 import './App.css';
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
+import { Link, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { backendURL } from './Globals';
 import CreateUserComponent from './Components/CreateUserComponent';
@@ -16,17 +16,34 @@ import PresentFriendsComponent from './Components/PresentFriendsComponent';
 let App = () => {
 
   let [notification, setNotification] = useState("");
-
-  let createNotification = (msg) => {
-    setNotification(msg);
-    setTimeout( () => {
-      setNotification("");
-    }, 3000)
-  }
-
   let [login, setLogin] = useState(false);
 
   let navigate = useNavigate();
+
+  let location = useLocation();
+
+  useEffect(() => {
+    checkLogin();
+  }, [])
+
+  let checkLogin = async () => {
+    if (localStorage.getItem("apiKey") != null) {
+      let response = await fetch (backendURL + "/users/checkLogin?apiKey=" + localStorage.getItem("apiKey"))
+      if (response.status == 401) {
+        setLogin(false);
+        navigate("/login")
+        return
+      } else {
+        setLogin(true);
+      }     
+    } else {
+      setLogin(false);
+      let href = location.pathname
+      if ( ["/login", "/register"].includes(href) == false ) {
+        navigate("/login")
+      }
+    }
+  }
 
   useEffect(() => {
     if (localStorage.getItem("apiKey") != null) {
@@ -35,6 +52,13 @@ let App = () => {
       setLogin(false)
     }
   }, []);
+
+  let createNotification = (msg) => {
+    setNotification(msg);
+    setTimeout( () => {
+      setNotification("");
+    }, 3000)
+  }
 
   let disconnect = async () => {
     await fetch (backendURL + "/users/disconnect?apiKey=" + localStorage.getItem("apiKey"))
@@ -62,8 +86,6 @@ let App = () => {
           </ul>
         </nav>
 
-        
-
       </header>
       <main className="main-container">
         { notification != "" && (
@@ -74,7 +96,7 @@ let App = () => {
           )}
         <Routes>
           <Route path="/" element={
-            <p>Index of Website</p>
+            <h2>Index of Website</h2>
           }/>
 
           <Route path="/register" element={
