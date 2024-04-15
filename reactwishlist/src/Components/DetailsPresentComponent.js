@@ -19,10 +19,11 @@ let DetailsPresentComponent = () => {
         let response = await fetch(backendURL + "/presents/" + presentId + "?apiKey=" + localStorage.getItem("apiKey"))
 
         if (response.ok) {
-            let jsonData = await response.json()
+            let jsonData = await response.json();
             setPresent(jsonData)
         } else {
-            setMessage("Error")
+            let jsonData = await response.json();
+            setMessage(jsonData.errors)
         }
     }
 

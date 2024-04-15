@@ -20,7 +20,8 @@ let MyFriendsComponent = () => {
             let jsonData = await response.json()
             setFriends(jsonData)
         } else {
-            setMessage("Error")
+            let jsonData = await response.json();
+            setMessage(jsonData.errors)
         }
     }
 

@@ -20,7 +20,16 @@ let PresentFriendsComponent = () => {
             getPresent();
         } else {
             let jsonData = await response.json();
-            setMessage(jsonData.errors)
+
+            if (Array.isArray(jsonData.errors)) {
+                let finalErrorMessage = "";
+                jsonData.errors.forEach(obj => {
+                    finalErrorMessage += obj.errors + " "})
+                setMessage(finalErrorMessage)
+
+            } else {
+                setMessage(jsonData.errors)
+            }
         }
     }
 

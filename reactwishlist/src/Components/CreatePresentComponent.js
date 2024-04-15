@@ -17,11 +17,11 @@ let CreatePresentComponent = () => {
         let updatedErrors = {}
         
         if ( present.name == "" || present.name?.length < 3 ) {
-            updatedErrors.name = "Incorrect name format"
+            updatedErrors.name = "Must have at least 3 characters"
         }
-
+        
         if ( present.description == "" || present.description?.length < 10 ) {
-            updatedErrors.description = "Incorrect description format"
+            updatedErrors.description = "Must have at least 10 characters"
         }
         
         if ( present.url == "" || (present.url != null && /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(present.url) == false) ) {
@@ -51,7 +51,17 @@ let CreatePresentComponent = () => {
             let jsonData = await response.json();
             navigate("/myPresents")
         } else {
-            setMessage("Error creating present")
+            let jsonData = await response.json();
+
+            if (Array.isArray(jsonData.errors)) {
+                let finalErrorMessage = "";
+                jsonData.errors.forEach(obj => {
+                    finalErrorMessage += obj.errors + " "})
+                setMessage(finalErrorMessage)
+
+            } else {
+                setMessage(jsonData.errors)
+            }
         }
     }
 

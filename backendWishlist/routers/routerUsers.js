@@ -1,5 +1,6 @@
 const express = require("express");
 const database = require("../database");
+const { isEmail } = require("validator");
 
 const routerUsers = express.Router();
 const jwt = require("jsonwebtoken");
@@ -12,11 +13,11 @@ routerUsers.post("/login", async (req, res) => {
 
     let errors = []
 
-    if ( email == undefined ) {
-        errors.push("No email in body")
+    if ( email == undefined || email.length < 3 || isEmail(email) == false ) {
+        errors.push({errors:"No email in body"})
     }
-    if ( password == undefined ) {
-        errors.push("No password in body")
+    if (password == undefined || password.length < 5) {
+        errors.push({errors: "Password less than 5"})
     }
     if ( errors.length > 0) {
         return res.status(400).json({errors: errors})
@@ -62,17 +63,14 @@ routerUsers.post("/", async (req, res) => {
 
     let errors = []
 
-    if ( email == undefined ) {
-        errors.push("No email in body")
+    if ( email == undefined || email.length < 3 || isEmail(email) == false ) {
+        errors.push({errors:"No email in body"})
     }
-    if ( name == undefined ) {
-        errors.push("No name in body")
+    if ( name == undefined || name.length < 2 ) {
+        errors.push({errors: "No name in body"})
     }
-    if ( password == undefined ) {
-        errors.push("No password in body")
-    }
-    if (password != undefined && password.length < 5) {
-        errors.push("Password less than 5")
+    if (password == undefined || password.length < 5) {
+        errors.push({errors: "Password less than 5"})
     }
     if ( errors.length > 0) {
         return res.status(400).json({errors: errors})

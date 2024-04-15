@@ -23,7 +23,7 @@ let CreateUserComponent = () => {
         }
 
         if ( name == "" || name?.length < 2 ) {
-            updatedErrors.name = "Incorrect name format"
+            updatedErrors.name = "Must have at least 2 characters"
         }
         
         if ( password == "" || password?.length < 5 ) {
@@ -61,7 +61,17 @@ let CreateUserComponent = () => {
             navigate("/login")
             //setMessage("New user created")
         } else {
-            setMessage("Error creating user")
+            let jsonData = await response.json();
+
+            if (Array.isArray(jsonData.errors)) {
+                let finalErrorMessage = "";
+                jsonData.errors.forEach(obj => {
+                    finalErrorMessage += obj.errors + " "})
+                setMessage(finalErrorMessage)
+
+            } else {
+                setMessage(jsonData.errors)
+            }
         }
     }
 

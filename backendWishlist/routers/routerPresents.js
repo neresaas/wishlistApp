@@ -1,5 +1,6 @@
 const express = require("express");
 const database = require("../database");
+const { isURL } = require("validator");
 
 const routerPresents = express.Router();
 
@@ -58,24 +59,24 @@ routerPresents.post("/", async (req, res) => {
 
     let errors = []
 
-    if ( name == undefined ) {
-      errors.push("No name in body")
+    if ( name == undefined || name.length < 2 ) {
+      errors.push({errors:"No name in body"})
     }
 
-    if ( description == undefined ) {
-        errors.push("No description in body")
+    if ( description == undefined || description.length < 10 ) {
+        errors.push({errors:"No description in body"})
     }
 
-    if ( url == undefined ) {
-        errors.push("No URL in body")
+    if ( url == undefined || url == "" || isURL(url) == false ) {
+        errors.push({errors:"No URL in body"})
     }
 
     if (isNaN(price)) {
-        errors.push("Price is not a number")
+        errors.push({errors:"Price is not a number"})
     }
 
     if (parseFloat(price) <= 0) {
-        errors.push("Price must be higher than 0")
+        errors.push({errors: "Price must be higher than 0"})
     }
 
     if (errors.length > 0) {
@@ -106,6 +107,32 @@ routerPresents.put("/:id", async (req, res) => {
     let description = req.body.description
     let url = req.body.url
     let price = req.body.price
+
+    let errors = []
+
+    if ( name == undefined || name.length < 2 ) {
+      errors.push({errors:"No name in body"})
+    }
+
+    if ( description == undefined || description.length < 10 ) {
+        errors.push({errors:"No description in body"})
+    }
+
+    if ( url == undefined || url == "" || isURL(url) == false ) {
+        errors.push({errors:"No URL in body"})
+    }
+
+    if (isNaN(price)) {
+        errors.push({errors:"Price is not a number"})
+    }
+
+    if (parseFloat(price) <= 0) {
+        errors.push({errors: "Price must be higher than 0"})
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({errors: errors})
+    }
 
     database.connect();
     

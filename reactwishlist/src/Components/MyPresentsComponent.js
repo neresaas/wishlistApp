@@ -18,7 +18,8 @@ let MyPresentsComponent = () => {
             let jsonData = await response.json()
             setPresents(jsonData)
         } else {
-            setMessage("Error")
+            let jsonData = await response.json();
+            setMessage(jsonData.errors)
         }
     }
 

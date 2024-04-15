@@ -61,7 +61,17 @@ let LoginUserComponent = (props) => {
 
             setLogin(true)
         } else {
-            setMessage("Not user found")
+            let jsonData = await response.json();
+
+            if (Array.isArray(jsonData.errors)) {
+                let finalErrorMessage = "";
+                jsonData.errors.forEach(obj => {
+                    finalErrorMessage += obj.errors + " "})
+                setMessage(finalErrorMessage)
+
+            } else {
+                setMessage(jsonData.errors)
+            }
         }
     }
 

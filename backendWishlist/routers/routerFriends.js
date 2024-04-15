@@ -24,8 +24,13 @@ routerFriends.get("/", async (req, res) => {
 routerFriends.post("/", async (req, res) => {
     let emailFriend = req.body.emailFriend
 
+    let errors = []
+
     if ( emailFriend == undefined ) {
-        errors.push("No email in body")
+        errors.push({errors:"No email in body"})
+    }
+    if (errors.length > 0) {
+        return res.status(400).json({errors: errors})
     }
 
     database.connect();
