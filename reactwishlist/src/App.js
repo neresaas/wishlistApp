@@ -15,6 +15,15 @@ import PresentFriendsComponent from './Components/PresentFriendsComponent';
 
 let App = () => {
 
+  let [notification, setNotification] = useState("");
+
+  let createNotification = (msg) => {
+    setNotification(msg);
+    setTimeout( () => {
+      setNotification("");
+    }, 3000)
+  }
+
   let [login, setLogin] = useState(false);
 
   let navigate = useNavigate();
@@ -52,15 +61,24 @@ let App = () => {
             { login && <li><Link to="#" onClick={disconnect}>Disconnect</Link></li>}
           </ul>
         </nav>
+
+        
+
       </header>
       <main className="main-container">
+        { notification != "" && (
+            <div className='notification'>
+              { notification }
+              <span className='close-btn' onClick={() => {setNotification("")}}>x</span>
+            </div>
+          )}
         <Routes>
           <Route path="/" element={
             <p>Index of Website</p>
           }/>
 
           <Route path="/register" element={
-            <CreateUserComponent/>
+            <CreateUserComponent createNotification={createNotification}/>
           }/>
 
           <Route path="/login" element={
@@ -68,11 +86,11 @@ let App = () => {
           }/>
 
           <Route path="/createPresent" element={
-            <CreatePresentComponent/>
+            <CreatePresentComponent createNotification={createNotification}/>
           }/>
 
           <Route path="/myPresents" element={
-            <MyPresentsComponent/>
+            <MyPresentsComponent createNotification={createNotification}/>
           }/>
 
           <Route path="/present/:presentId" element={
@@ -80,15 +98,15 @@ let App = () => {
           }/>
 
           <Route path="/present/edit/:presentId" element={
-            <EditPresentComponent/>
+            <EditPresentComponent createNotification={createNotification}/>
           }/>
 
           <Route path="/friends/addFriend" element={
-            <AddFriendsComponent/>
+            <AddFriendsComponent createNotification={createNotification}/>
           }/>
 
           <Route path="/friends" element={
-            <MyFriendsComponent/>
+            <MyFriendsComponent createNotification={createNotification}/>
           }/>
 
           <Route path="/gift" element={
@@ -96,7 +114,7 @@ let App = () => {
           }/>
 
           <Route path="/gift/:presentId" element={
-            <PresentFriendsComponent/>
+            <PresentFriendsComponent createNotification={createNotification}/>
           }/>
         </Routes>
       </main>

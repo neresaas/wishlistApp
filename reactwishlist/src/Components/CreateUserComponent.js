@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { useNavigate } from "react-router-dom";
 
-let CreateUserComponent = () => {
+let CreateUserComponent = (props) => {
+    let {createNotification} = props;
+
     let [email, setEmail] = useState(null);
     let [name, setName] = useState(null);
     let [password, setPassword] = useState(null);
@@ -58,8 +60,8 @@ let CreateUserComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
+            createNotification("User created successfully")
             navigate("/login")
-            //setMessage("New user created")
         } else {
             let jsonData = await response.json();
 

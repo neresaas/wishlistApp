@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { Link } from "react-router-dom";
 
-let MyPresentsComponent = () => {
+let MyPresentsComponent = (props) => {
+    let { createNotification } = props;
 
     let [presents, setPresents] = useState([]);
     let [message, setMessage] = useState("");
@@ -30,6 +31,7 @@ let MyPresentsComponent = () => {
 
         if (response.ok) {
             let updatedPresent = presents.filter(present => present.id != id)
+            createNotification("Present deleted successfully")
             setPresents(updatedPresent)
         } else {
             let jsonData = await response.json();

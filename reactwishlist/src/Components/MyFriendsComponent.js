@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { useNavigate } from "react-router-dom";
 
-let MyFriendsComponent = () => {
+let MyFriendsComponent = (props) => {
+    let { createNotification } = props;
 
     let [friends, setFriends] = useState([]);
     let [message, setMessage] = useState("");
@@ -32,6 +33,7 @@ let MyFriendsComponent = () => {
 
         if (response.ok) {
             let updatedFriend = friends.filter(friend => friend.emailFriend != emailFriend)
+            createNotification("Friend deleted successfully")
             setFriends(updatedFriend)
         } else {
             let jsonData = await response.json();

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { useNavigate, useParams } from "react-router-dom";
 
-let EditPresentComponent = () => {
+let EditPresentComponent = (props) => {
+    let { createNotification } = props;
 
     let [present, setPresent] = useState({});
     let [message, setMessage] = useState("");
@@ -52,6 +53,7 @@ let EditPresentComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
+            createNotification("Present edited successfully")
             navigate("/present/" + presentId)
         } else {
             let jsonData = await response.json();

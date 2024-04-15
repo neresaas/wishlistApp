@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { useNavigate } from "react-router-dom";
 
-let AddFriendsComponent = () => {
+let AddFriendsComponent = (props) => {
+    let { createNotification } = props
+
     let [emailFriend, setEmailFriend] = useState(null);
     let [message, setMessage] = useState("");
     let [error, setError] = useState({});
@@ -38,6 +40,7 @@ let AddFriendsComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
+            createNotification("New friend added")
             navigate("/friends")
         } else {
             let jsonData = await response.json();

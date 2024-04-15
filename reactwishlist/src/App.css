@@ -107,6 +107,15 @@ button {
   margin-top: 15px;
   max-width: 90px;
 }
+
+.close-btn {
+  position: absolute;
+  top: 0.01rem;
+  right: 0.5rem;
+  font-size: 1.4rem;
+  color: hsl(0, 0%, 80%);
+  cursor: pointer;
+}
   
 button:hover {
   background-color: hsl(260, 5%, 45%);
@@ -179,4 +188,15 @@ td {
 td, th {
   border: 1px solid hsl(0, 0%, 80%);
   padding: 1.6rem;
+}
+
+.notification {
+  position: relative;
+  font-size: 1.4rem;
+  background-color: white;
+  border: 1px solid hsl(0, 0%, 80%);
+  color: hsl(20, 10%, 75%);
+  padding: 0.8rem;
+  margin-bottom: 1.6rem;
+  border-radius: 3px;
 }

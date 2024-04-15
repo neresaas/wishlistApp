@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { useParams } from "react-router-dom";
 
-let PresentFriendsComponent = () => {
+let PresentFriendsComponent = (props) => {
+    let { createNotification } = props;
+
     let [present, setPresent] = useState({});
     let [message, setMessage] = useState("");
 
@@ -17,6 +19,7 @@ let PresentFriendsComponent = () => {
 
         if ( response.ok ) {
             let jsonData = await response.json();
+            createNotification("Present choosed")
             getPresent();
         } else {
             let jsonData = await response.json();
