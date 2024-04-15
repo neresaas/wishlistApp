@@ -1,12 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { useNavigate } from "react-router-dom";
 
 let AddFriendsComponent = () => {
-    let [emailFriend, setEmailFriend] = useState("");
+    let [emailFriend, setEmailFriend] = useState(null);
     let [message, setMessage] = useState("");
+    let [error, setError] = useState({});
 
     let navigate = useNavigate();
+    
+    useEffect( () => {
+        checkInputErrors();
+    }, [emailFriend])
+
+    let checkInputErrors = () => {
+        let updatedErrors = {}
+
+        if ( emailFriend == "" || emailFriend?.length < 3 || (emailFriend != null && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailFriend) == false) ) {
+            updatedErrors.emailFriend = "Incorrect email format"
+        }
+
+        setError(updatedErrors);
+    }
     
     let changeEmailFriend = (e) => {
         setEmailFriend(e.currentTarget.value)
@@ -40,6 +55,7 @@ let AddFriendsComponent = () => {
                 <div className="form-group">
                     <input type="text" placeholder="Email Friend" onChange={changeEmailFriend}></input>
                 </div>
+                { error.emailFriend && <p className="errorForm"> { error.emailFriend } </p> }
 
                <button onClick={clickAddFriend}>Add Friend</button>                
             </div>

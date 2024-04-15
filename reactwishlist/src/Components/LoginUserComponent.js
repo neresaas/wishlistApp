@@ -1,15 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { useNavigate } from "react-router-dom";
 
 let LoginUserComponent = (props) => {
     let { setLogin } = props;
 
-    let [email, setEmail] = useState("");
-    let [password, setPassword] = useState("");
+    let [email, setEmail] = useState(null);
+    let [password, setPassword] = useState(null);
     let [message, setMessage] = useState("");
+    let [error, setError] = useState({});
 
     let navigate = useNavigate();
+
+    useEffect( () => {
+        checkInputErrors();
+    }, [email, password])
+
+    let checkInputErrors = () => {
+        let updatedErrors = {}
+
+        if ( email == "" || email?.length < 3 || (email != null && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) == false) ) {
+            updatedErrors.email = "Incorrect email format"
+        }
+
+        if ( password == "" || password?.length < 5 ) {
+            updatedErrors.password = "Too short password"
+        }
+
+        setError(updatedErrors);
+    }
 
     let changeEmail = (e) => {
         setEmail(e.currentTarget.value)
@@ -56,9 +75,13 @@ let LoginUserComponent = (props) => {
                 <div className="form-group">
                     <input type="text" placeholder="Your email" onChange={changeEmail}></input>
                 </div>
+                { error.email && <p className="errorForm"> { error.email } </p> }
+
                 <div className="form-group">
                     <input type="password" placeholder="Your password" onChange={changePassword}></input>
                 </div>
+                { error.password && <p className="errorForm"> { error.password } </p> }
+
                <button onClick={clickLogin}>Login</button>                
             </div>
         </div>

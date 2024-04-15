@@ -81,7 +81,7 @@ input {
 button {
   padding: 10px 20px;
   background-color: hsl(271, 10%, 50%);
-  color: #fff;
+  color: hsl(0, 0%, 100%);
   border: none;
   border-radius: 3px;
   cursor: pointer;
@@ -114,7 +114,12 @@ button:hover {
 
 .errorMessage {
   text-align: center;
-  color: red;
+  color: hsl(0, 100%, 50%);
+}
+
+.errorForm{
+  color:hsl(0, 100%, 50%);
+  font-size: 1.4rem;
 }
 
 .presents {
