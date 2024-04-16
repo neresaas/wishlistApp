@@ -26,7 +26,8 @@ let CreatePresentComponent = (props) => {
             updatedErrors.description = "Must have at least 10 characters"
         }
         
-        if ( present.url == "" || (present.url != null && /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(present.url) == false) ) {
+        if ( present.url == "" || (present.url != null &&
+        /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(present.url) == false) ) {
             updatedErrors.url = "Incorrect URL format"
         }
 
@@ -53,6 +54,7 @@ let CreatePresentComponent = (props) => {
             let jsonData = await response.json();
             createNotification("Present created")
             navigate("/myPresents")
+
         } else {
             let jsonData = await response.json();
 
@@ -69,35 +71,39 @@ let CreatePresentComponent = (props) => {
     }
 
     return (
-        <div>
+        <section>
             <h2>Create present</h2>
 
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
 
             <div className="center-box">
                 <div className="form-group">
-                    <input type="text" placeholder="Name" onChange={ (e) => changeProperty("name", e) }></input>
+                    <input autoFocus type="text" placeholder="Name" onChange={ (e) => changeProperty("name", e) }></input>
                 </div>
+                
                 { error.name && <p className="errorForm"> { error.name } </p> }
 
                 <div className="form-group">
                     <input type="text" placeholder="Description" onChange={ (e) => changeProperty("description", e) }></input>
                 </div>
+
                 { error.description && <p className="errorForm"> { error.description } </p> }
 
                 <div className="form-group">
                     <input type="url" placeholder="URL" onChange={ (e) => changeProperty("url", e) }></input>
                 </div>
+
                 { error.url && <p className="errorForm"> { error.url } </p> }
 
                 <div className="form-group">
                     <input type="number" placeholder="Price" onChange={ (e) => changeProperty("price", e) }></input>
                 </div>
+
                 { error.price && <p className="errorForm"> { error.price } </p> }
 
                <button onClick={clickCreate}>Create Present</button>                
             </div>
-        </div>
+        </section>
     )
 }
 

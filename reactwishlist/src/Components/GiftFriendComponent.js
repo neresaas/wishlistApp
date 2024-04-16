@@ -15,7 +15,8 @@ let GiftFriendComponent = () => {
     let checkInputErrors = () => {
         let updatedErrors = {}
 
-        if ( emailFriend == "" || emailFriend?.length < 3 || (emailFriend != null && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailFriend) == false) ) {
+        if ( emailFriend == "" || emailFriend?.length < 3 || (emailFriend != null &&
+            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailFriend) == false) ) {
             updatedErrors.emailFriend = "Incorrect email format"
         }
 
@@ -34,7 +35,7 @@ let GiftFriendComponent = () => {
         console.log(response)
 
         if (response.ok) {
-            let jsonData = await response.json()
+            let jsonData = await response.json();
             setPresents(jsonData)
         } else {
             let jsonData = await response.json();
@@ -43,15 +44,16 @@ let GiftFriendComponent = () => {
     }
     
     return (
-        <div>
+        <section>
             <h2>Search presents</h2>
 
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
 
             <div className="center-box">
                 <div className="form-group">
-                    <input type="text" value={emailFriend} onChange={changeUserEmail} placeholder="Email Friend"></input>
+                    <input autoFocus type="text" value={emailFriend} onChange={changeUserEmail} placeholder="Email Friend"></input>
                 </div>
+                
                 { error.emailFriend && <p className="errorForm"> { error.emailFriend } </p> }
 
                <button onClick={getPresents}>Search</button>             
@@ -66,7 +68,7 @@ let GiftFriendComponent = () => {
                         </Link>                        
                     )
                 )}
-        </div>
+        </section>
     )
 }
 

@@ -26,7 +26,8 @@ let EditPresentComponent = (props) => {
             updatedErrors.description = "Incorrect description format"
         }
         
-        if ( present.url == "" || (present.url != null && /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(present.url) == false) ) {
+        if ( present.url == "" || (present.url != null &&
+            /(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(present.url) == false) ) {
             updatedErrors.url = "Incorrect URL format"
         }
 
@@ -55,6 +56,7 @@ let EditPresentComponent = (props) => {
             let jsonData = await response.json();
             createNotification("Present edited successfully")
             navigate("/present/" + presentId)
+
         } else {
             let jsonData = await response.json();
 
@@ -78,8 +80,9 @@ let EditPresentComponent = (props) => {
         let response = await fetch(backendURL + "/presents/" + presentId + "?apiKey=" + localStorage.getItem("apiKey"))
 
         if (response.ok) {
-            let jsonData = await response.json()
+            let jsonData = await response.json();
             setPresent(jsonData)
+
         } else {
             setMessage("Error")
         }
@@ -96,24 +99,28 @@ let EditPresentComponent = (props) => {
                     <input type="text" placeholder="Name" value={ present.name }
                     onChange={ (e) => { changeProperty("name", e) }}/>
                 </div>
+
                 { error.name && <p className="errorForm"> { error.name } </p> }
 
                 <div className="form-group">
                     <input type="text" placeholder="Description" value={ present.description }
                     onChange={ (e) => { changeProperty("description", e) }}/>
                 </div>
+
                 { error.description && <p className="errorForm"> { error.description } </p> }
 
                 <div className="form-group">
                     <input type="url" placeholder="URL" value={ present.url }
                     onChange={ (e) => { changeProperty("url", e) }}/>
                 </div>
+
                 { error.url && <p className="errorForm"> { error.url } </p> }
 
                 <div className="form-group">
                     <input type="number" placeholder="Price" value={ present.price }
                     onChange={ (e) => { changeProperty("price", e) }}/>
                 </div>
+                
                 { error.price && <p className="errorForm"> { error.price } </p> }
 
                 <button onClick={clickEdit}>Edit Present</button>               

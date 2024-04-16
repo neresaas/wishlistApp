@@ -29,16 +29,21 @@ let App = () => {
   let checkLogin = async () => {
     if (localStorage.getItem("apiKey") != null) {
       let response = await fetch (backendURL + "/users/checkLogin?apiKey=" + localStorage.getItem("apiKey"))
+
       if (response.status == 401) {
         setLogin(false);
         navigate("/login")
         return
+
       } else {
         setLogin(true);
-      }     
+      }
+
     } else {
       setLogin(false);
+
       let href = location.pathname
+
       if ( ["/login", "/register"].includes(href) == false ) {
         navigate("/login")
       }
@@ -48,8 +53,10 @@ let App = () => {
   useEffect(() => {
     if (localStorage.getItem("apiKey") != null) {
       setLogin(true)
+
     } else {
       setLogin(false)
+      
     }
   }, []);
 
@@ -87,7 +94,7 @@ let App = () => {
         </nav>
 
       </header>
-      <main className="main-container">
+      <main>
         { notification != "" && (
             <div className='notification'>
               { notification }
@@ -141,7 +148,7 @@ let App = () => {
         </Routes>
       </main>
       <footer>
-        &copy; 2024 Wishlist app
+        <p>&copy; 2024 Wishlist app</p>
       </footer>
     </div>
   );

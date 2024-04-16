@@ -18,8 +18,9 @@ let MyFriendsComponent = (props) => {
         let response = await fetch(backendURL + "/friends?apiKey=" + localStorage.getItem("apiKey"))
 
         if (response.ok) {
-            let jsonData = await response.json()
+            let jsonData = await response.json();
             setFriends(jsonData)
+
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)
@@ -35,6 +36,7 @@ let MyFriendsComponent = (props) => {
             let updatedFriend = friends.filter(friend => friend.emailFriend != emailFriend)
             createNotification("Friend deleted successfully")
             setFriends(updatedFriend)
+            
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)
@@ -51,14 +53,14 @@ let MyFriendsComponent = (props) => {
 
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
 
-            <div className="presents">
+            <div className="name-box">
 
                 <button className="friend-btn" onClick={addFriend}>Add friend</button>
 
                 { friends.map( friend =>   
                     (
-                        <div className="div-presents">
-                            <div className="present">
+                        <div className="div-container">
+                            <div className="name">
                                 <h4>{ friend.emailFriend }</h4>
                             </div>
 

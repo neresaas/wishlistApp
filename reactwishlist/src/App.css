@@ -1,9 +1,9 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 62.50%;
+  font-size: 62.50%;
 }
 
 body {
@@ -11,30 +11,51 @@ body {
   font-size: 1.6rem;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 80px;
   background-color: hsl(0, 0%, 96%);
+}
+
+main {
+  flex-grow: 1;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.1);
+}
+
+@media screen and (max-width: 800px) {
+  main {
+    max-width: 500px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  main {
+    max-width: 300px;
+  }
 }
 
 footer {
   color: hsl(0, 0%, 100%);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   font-size: 1.2rem;
   text-align: center;
   padding: 1.6rem;
   background-color:  hsl(300, 10%, 50%);
 }
 
-.main-container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: hsl(0, 0%, 100%);
-  border-radius: 5px;
-  box-shadow: 0 2px 5px hsla(0, 0%, 0%, 0.1);
-}
-  
 h1, h2, h3, h4 {
   text-align: center;
 }
- 
+
 .navbar {
   list-style-type: none;
   margin: 0;
@@ -42,161 +63,170 @@ h1, h2, h3, h4 {
   overflow: hidden;
   background-color:  hsl(300, 10%, 50%);
 }
-  
+
+@media screen and (max-width: 800px) {
+  .navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+
 .navbar li {
-  float: left;
+float: left;
 }
 
 .navbar li a {
-  display: block;
-  color: hsl(0, 0%, 100%);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+display: block;
+color: hsl(0, 0%, 100%);
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
 }
 
 .navbar li a:hover {
-  background-color: hsl(260, 5%, 60%);
+background-color: hsl(260, 5%, 60%);
 }
- 
+
 .center-box {
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: hsl(0, 0%, 98%);
-  border: 1px solid hsl(0, 0%, 80%);
+max-width: 400px;
+margin: 2rem auto;
+padding: 2rem;
+background-color: hsl(0, 0%, 98%);
+border: 1px solid hsl(0, 0%, 80%);
 }
-  
+
 .form-group {
-  margin-bottom: 15px;
-  display:flex;
+margin-bottom: 1.5rem;
+display:flex;
 }
-  
+
 input {
-  padding: 10px;
-  border: 1px solid hsl(0, 0%, 80%);
-  width:100%;
+padding: 1rem;
+border: 1px solid hsl(0, 0%, 80%);
+width:100%;
 }
-  
+
 button {
-  padding: 10px 20px;
-  background-color: hsl(271, 10%, 50%);
-  color: hsl(0, 0%, 100%);
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  width:100%;
+padding: 1rem 2rem;
+background-color: hsl(271, 10%, 50%);
+color: hsl(0, 0%, 100%);
+border: none;
+border-radius: 3px;
+cursor: pointer;
+width:100%;
 }
 
 .delete-btn {
-  max-width: 60px;
-  margin-top: 5px;
-  margin-bottom: 5px;
+max-width: 60px;
+margin-top: 0.5rem;
+margin-bottom: 0.5rem;
 }
 
 .edit-btn {
-  max-width: 80px;
-  margin-top: 5px;
+max-width: 80px;
+margin-top: 0.5rem;
 }
 
 .friend-btn {
-  margin-bottom: 15px;
+margin-bottom: 15px;
 }
 
 .choose-btn {
-  margin-top: 15px;
-  max-width: 90px;
+margin-top: 15px;
+max-width: 90px;
 }
 
 .close-btn {
-  position: absolute;
-  top: 0.01rem;
-  right: 0.5rem;
-  font-size: 1.4rem;
-  color: hsl(0, 0%, 80%);
-  cursor: pointer;
+position: absolute;
+top: 0.01rem;
+right: 0.5rem;
+font-size: 1.4rem;
+color: hsl(0, 0%, 80%);
+cursor: pointer;
 }
-  
+
 button:hover {
-  background-color: hsl(260, 5%, 45%);
+background-color: hsl(260, 5%, 45%);
 }
 
 .errorMessage {
-  text-align: center;
-  color: hsl(0, 100%, 50%);
+text-align: center;
+color: hsl(0, 100%, 50%);
 }
 
 .errorForm{
-  color:hsl(0, 100%, 50%);
-  font-size: 1.4rem;
+color:hsl(0, 100%, 50%);
+font-size: 1.4rem;
 }
 
-.presents {
-  max-width: 450px;
-  margin: 20px auto;
-  background-color: hsl(0, 0%, 98%);
+.name-box {
+max-width: 450px;
+margin: 2rem auto;
+background-color: hsl(0, 0%, 98%);
 }
 
-.present {
-  padding: 0.5rem;
-  background-color: rgb(244, 240, 246);
-  border: 1px solid hsl(0, 0%, 80%);
-  border-radius: 3px;
+.name {
+padding: 0.5rem;
+background-color: rgb(244, 240, 246);
+border: 1px solid hsl(0, 0%, 80%);
+border-radius: 3px;
 }
 
 .present:hover {
-  color: hsl(270, 10%, 50%);
+color: hsl(270, 10%, 50%);
 }
 
 .present-friend {
-  padding: 0.5rem;
-  background-color: rgb(244, 240, 246);
-  border: 1px solid hsl(0, 0%, 80%);
-  border-radius: 3px;
-  margin-bottom: 5px;
+padding: 0.5rem;
+background-color: rgb(244, 240, 246);
+border: 1px solid hsl(0, 0%, 80%);
+border-radius: 3px;
+margin-bottom: 5px;
 }
 
 .present-friend:hover {
-  color: hsl(270, 10%, 50%);
+color: hsl(270, 10%, 50%);
 }
 
-.div-presents {
-  text-align: end;
+.div-container {
+text-align: end;
 }
 
 .edit-details {
-  text-align: center;
+text-align: center;
 }
 
 a {
-  color: hsl(0, 0%, 0%);
-  text-decoration: none;
+color: hsl(0, 0%, 0%);
+text-decoration: none;
 }
 
 table {
-  border-collapse: collapse;
-  margin: auto;
+border-collapse: collapse;
+margin: auto;
 }
 
 td {
-  max-width: 600px;
-  min-width: 300px;
-  word-break: break-all;
-  text-align: start;
+max-width: 600px;
+min-width: 100px;
+word-break: break-all;
+text-align: start;
 }
 
 td, th {
-  border: 1px solid hsl(0, 0%, 80%);
-  padding: 1.6rem;
+border: 1px solid hsl(0, 0%, 80%);
+padding: 1.6rem;
 }
 
 .notification {
-  position: relative;
-  font-size: 1.4rem;
-  background-color: white;
-  border: 1px solid hsl(0, 0%, 80%);
-  color: hsl(20, 10%, 75%);
-  padding: 0.8rem;
-  margin-bottom: 1.6rem;
-  border-radius: 3px;
+position: relative;
+font-size: 1.4rem;
+background-color: white;
+border: 1px solid hsl(0, 0%, 80%);
+color: hsl(20, 10%, 75%);
+padding: 0.8rem;
+margin-bottom: 1.6rem;
+border-radius: 3px;
 }

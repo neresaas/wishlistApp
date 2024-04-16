@@ -20,7 +20,8 @@ let CreateUserComponent = (props) => {
     let checkInputErrors = () => {
         let updatedErrors = {}
 
-        if ( email == "" || email?.length < 3 || (email != null && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) == false) ) {
+        if ( email == "" || email?.length < 3 ||
+        (email != null && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) == false) ) {
             updatedErrors.email = "Incorrect email format"
         }
 
@@ -62,6 +63,7 @@ let CreateUserComponent = (props) => {
             let jsonData = await response.json();
             createNotification("User created successfully")
             navigate("/login")
+
         } else {
             let jsonData = await response.json();
 
@@ -78,30 +80,33 @@ let CreateUserComponent = (props) => {
     }
 
     return (
-        <div>
+        <section>
             <h2>Register user</h2>
 
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
 
             <div className="center-box">
                 <div className="form-group">
-                    <input type="text" placeholder="Your email" onChange={changeEmail}></input>
+                    <input autoFocus type="text" placeholder="Your email" onChange={changeEmail}></input>
                 </div>
+
                 { error.email && <p className="errorForm"> { error.email } </p> }
 
                 <div className="form-group">
                     <input type="text" placeholder="Your name" onChange={changeName}></input>
                 </div>
+
                 { error.name && <p className="errorForm"> { error.name } </p> }
 
                 <div className="form-group">
                     <input type="password" placeholder="Your password" onChange={changePassword}></input>
                 </div>
+                
                 { error.password && <p className="errorForm"> { error.password } </p> }
 
                <button onClick={clickCreate}>Create Account</button>                
             </div>
-        </div>
+        </section>
     )
 }
 

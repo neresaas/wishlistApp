@@ -18,7 +18,8 @@ let AddFriendsComponent = (props) => {
     let checkInputErrors = () => {
         let updatedErrors = {}
 
-        if ( emailFriend == "" || emailFriend?.length < 3 || (emailFriend != null && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailFriend) == false) ) {
+        if ( emailFriend == "" || emailFriend?.length < 3 ||
+        (emailFriend != null && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailFriend) == false) ) {
             updatedErrors.emailFriend = "Incorrect email format"
         }
 
@@ -42,6 +43,7 @@ let AddFriendsComponent = (props) => {
             let jsonData = await response.json();
             createNotification("New friend added")
             navigate("/friends")
+
         } else {
             let jsonData = await response.json();
 
@@ -56,22 +58,24 @@ let AddFriendsComponent = (props) => {
             }
         }
     }
-        
+      
     return (
-        <div>
+        <section>
             <h2>Add Friend</h2>
 
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
 
             <div className="center-box">
+                
                 <div className="form-group">
-                    <input type="text" placeholder="Email Friend" onChange={changeEmailFriend}></input>
+                    <input autoFocus type="text" placeholder="Email Friend" onChange={changeEmailFriend}></input>
                 </div>
+
                 { error.emailFriend && <p className="errorForm"> { error.emailFriend } </p> }
 
                <button onClick={clickAddFriend}>Add Friend</button>                
             </div>
-        </div>
+        </section>
     )
 }
 

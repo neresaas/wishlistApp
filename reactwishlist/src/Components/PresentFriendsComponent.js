@@ -21,6 +21,7 @@ let PresentFriendsComponent = (props) => {
             let jsonData = await response.json();
             createNotification("Present choosed")
             getPresent();
+
         } else {
             let jsonData = await response.json();
 
@@ -44,8 +45,9 @@ let PresentFriendsComponent = (props) => {
         let response = await fetch(backendURL + "/presents/" + presentId + "?apiKey=" + localStorage.getItem("apiKey"))
 
         if (response.ok) {
-            let jsonData = await response.json()
+            let jsonData = await response.json();
             setPresent(jsonData)
+
         } else {
             setMessage("Error")
         }
@@ -76,10 +78,10 @@ let PresentFriendsComponent = (props) => {
                     <td>{ present.chosenBy }</td>
                 </tr>               
             </table>
+
             <button className="choose-btn" onClick={clickChoose}>Choose</button>
         </section>
-    )
-    
+    ) 
 }
 
 export default PresentFriendsComponent;

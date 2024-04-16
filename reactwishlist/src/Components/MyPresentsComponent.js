@@ -16,8 +16,9 @@ let MyPresentsComponent = (props) => {
         let response = await fetch(backendURL + "/presents?apiKey=" + localStorage.getItem("apiKey"))
 
         if (response.ok) {
-            let jsonData = await response.json()
+            let jsonData = await response.json();
             setPresents(jsonData)
+
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)
@@ -33,6 +34,7 @@ let MyPresentsComponent = (props) => {
             let updatedPresent = presents.filter(present => present.id != id)
             createNotification("Present deleted successfully")
             setPresents(updatedPresent)
+            
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)
@@ -45,12 +47,12 @@ let MyPresentsComponent = (props) => {
 
             { message != "" && <h3 className="errorMessage"> { message } </h3> }
 
-            <div className="presents">
+            <div className="name-box">
                 { presents.map( present =>   
                     (
-                        <div className="div-presents">
+                        <div className="div-container">
                             <Link to={"/present/" + present.id}>
-                                <div className="present">
+                                <div className="name">
                                     <h4>{ present.name }</h4>
                                 </div>
                             </Link>
