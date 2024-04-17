@@ -17,7 +17,7 @@ app.use(["/presents", "/friends"] ,(req, res, next) => {
 	console.log("Middleware execution")
 
     let apiKey = req.query.apiKey
-    
+
     if(apiKey == undefined) {
         return res.status(401).json({error: "No apiKey"})
     }
