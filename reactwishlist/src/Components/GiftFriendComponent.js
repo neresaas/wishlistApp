@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { backendURL } from "../Globals";
 import { Link } from "react-router-dom";
 
-let GiftFriendComponent = () => {
+let GiftFriendComponent = (props) => {
+    let { createNotification } = props;
+
     let [presents, setPresents] = useState([]);
     let [emailFriend, setEmailFriend] = useState(null);
     let [message, setMessage] = useState("");
@@ -28,15 +30,17 @@ let GiftFriendComponent = () => {
     }
 
     let getPresents = async () => {
-        console.log(emailFriend)
 
         let response = await fetch(backendURL + "/presents?userEmail=" + emailFriend + "&apiKey=" + localStorage.getItem("apiKey"))
-
-        console.log(response)
 
         if (response.ok) {
             let jsonData = await response.json();
             setPresents(jsonData)
+
+            if (emailFriend == undefined || (emailFriend != undefined && jsonData.length == 0)) {
+                createNotification("Not found any present")
+            }
+
         } else {
             let jsonData = await response.json();
             setMessage(jsonData.errors)

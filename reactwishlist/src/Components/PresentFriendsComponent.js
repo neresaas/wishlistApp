@@ -16,7 +16,7 @@ let PresentFriendsComponent = (props) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify (present)
         })
-
+        
         if ( response.ok ) {
             let jsonData = await response.json();
             createNotification("Present choosed")

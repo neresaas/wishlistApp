@@ -139,7 +139,7 @@ let App = () => {
           }/>
 
           <Route path="/gift" element={
-            <GiftFriendComponent/>
+            <GiftFriendComponent createNotification={createNotification}/>
           }/>
 
           <Route path="/gift/:presentId" element={
